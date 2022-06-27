@@ -1,0 +1,35 @@
+{
+  "name": "grud-devtools",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "npm run build build -- --watch --noEmit",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/campudus/grud-devtools.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/campudus/grud-devtools/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.2",
+    "@types/ramda": "^0.28.14",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "jest": "^28.1.1",
+    "prettier": "^2.7.1",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "full-icu": "^1.4.0",
+    "ramda": "^0.28.0"
+  }
+}
