@@ -2,7 +2,32 @@
 
 Tools to share common tasks for GRUD data.
 
+All sub packages' exports are also exported by the package's main entry point. 
+
 ## Types
+
+Can be found in the `grud-devtools/types` sub package.
+
+## Type predicates
+
+A number of useful predicates can be imported from `grud-devtools/predicates` 
+
+``` typescript
+import { isBooleanColumn } from 'grud-devtools/predicates'
+```
+
+## Localisation helpers
+
+``` typescript
+import { formatCurrency, getCurrency } from 'grud-devtools/intl'
+
+const langtag = 'de-DE';
+const amount = 1234.56;
+
+formatCurrency(langtag, getCurrency(langtag), amount)
+// > "1.234,56 EUR"
+ ```
+
 
 ## `getDisplayValue`
 
