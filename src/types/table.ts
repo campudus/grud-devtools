@@ -1,8 +1,7 @@
 import { Language, Locale } from "src/grud-intl";
 import { MultilangValue } from "./common";
 
-export type TableID = number & { readonly __tag: unique symbol };
-export const TableID = (num: number) => num as TableID;
+export type TableID = number;
 
 export type TableAttributeSet = Record<string, any>;
 
