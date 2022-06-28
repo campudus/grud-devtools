@@ -3,6 +3,9 @@ import {
   AttachmentCellValue,
   AttachmentColumn,
   BooleanColumn,
+  ColumnID,
+  CurrencyCellValue,
+  CurrencyColumn,
   DateCellValue,
   DateColumn,
   DateTimeCellValue,
@@ -19,6 +22,7 @@ import {
   RichTextColumn,
   ShortTextCellValue,
   ShortTextColumn,
+  StatusColumn,
   TextCellValue,
   TextColumn,
   UUID,
@@ -249,7 +253,7 @@ describe("getDisplayValue()", () => {
   describe("attachment", () => {
     it("should format attachment values", () => {
       const column: AttachmentColumn = {
-        id: 6,
+        id: ColumnID(6),
         ordering: 6,
         name: "previewImage",
         kind: "attachment",
@@ -309,7 +313,7 @@ describe("getDisplayValue()", () => {
   describe("link", () => {
     it("should format simpler link columns", () => {
       const column: LinkColumn = {
-        id: 2,
+        id: ColumnID(2),
         ordering: 1,
         name: "manufacturer",
         kind: "link",
@@ -326,7 +330,7 @@ describe("getDisplayValue()", () => {
         attributes: {},
         toTable: 2,
         toColumn: {
-          id: 1,
+          id: ColumnID(1),
           ordering: 1,
           name: "name",
           kind: "shorttext",
@@ -363,7 +367,7 @@ describe("getDisplayValue()", () => {
   describe("column", () => {
     it("should format group columns", () => {
       const column: GroupColumn = {
-        id: 76,
+        id: ColumnID(76),
         ordering: 7,
         name: "haibikeClassificationGroup",
         kind: "group",
@@ -381,7 +385,7 @@ describe("getDisplayValue()", () => {
         attributes: {},
         groups: [
           {
-            id: 64,
+            id: ColumnID(64),
             ordering: 8,
             name: "haibikeClassification",
             kind: "link",
@@ -399,7 +403,7 @@ describe("getDisplayValue()", () => {
             attributes: {},
             toTable: 83,
             toColumn: {
-              id: 0,
+              id: ColumnID(0),
               ordering: 0,
               name: "ID",
               kind: "concat",
@@ -411,7 +415,7 @@ describe("getDisplayValue()", () => {
               attributes: {},
               concats: [
                 {
-                  id: 1,
+                  id: ColumnID(1),
                   ordering: 1,
                   name: "classname",
                   kind: "link",
@@ -428,7 +432,7 @@ describe("getDisplayValue()", () => {
                   attributes: {},
                   toTable: 82,
                   toColumn: {
-                    id: 1,
+                    id: ColumnID(1),
                     ordering: 1,
                     name: "classname",
                     kind: "shorttext",
@@ -446,7 +450,7 @@ describe("getDisplayValue()", () => {
                   },
                 },
                 {
-                  id: 2,
+                  id: ColumnID(2),
                   ordering: 2,
                   name: "bikeseries",
                   kind: "link",
@@ -463,7 +467,7 @@ describe("getDisplayValue()", () => {
                   attributes: {},
                   toTable: 81,
                   toColumn: {
-                    id: 0,
+                    id: ColumnID(0),
                     ordering: 0,
                     name: "ID",
                     kind: "concat",
@@ -475,7 +479,7 @@ describe("getDisplayValue()", () => {
                     attributes: {},
                     concats: [
                       {
-                        id: 1,
+                        id: ColumnID(1),
                         ordering: 1,
                         name: "bikedomain",
                         kind: "link",
@@ -491,7 +495,7 @@ describe("getDisplayValue()", () => {
                         attributes: {},
                         toTable: 80,
                         toColumn: {
-                          id: 0,
+                          id: ColumnID(0),
                           ordering: 0,
                           name: "ID",
                           kind: "concat",
@@ -503,7 +507,7 @@ describe("getDisplayValue()", () => {
                           attributes: {},
                           concats: [
                             {
-                              id: 1,
+                              id: ColumnID(1),
                               ordering: 1,
                               name: "bikeKind",
                               kind: "link",
@@ -519,7 +523,7 @@ describe("getDisplayValue()", () => {
                               attributes: {},
                               toTable: 79,
                               toColumn: {
-                                id: 1,
+                                id: ColumnID(1),
                                 ordering: 1,
                                 name: "identifier",
                                 kind: "shorttext",
@@ -537,7 +541,7 @@ describe("getDisplayValue()", () => {
                               },
                             },
                             {
-                              id: 2,
+                              id: ColumnID(2),
                               ordering: 2,
                               name: "domain",
                               kind: "shorttext",
@@ -556,7 +560,7 @@ describe("getDisplayValue()", () => {
                         },
                       },
                       {
-                        id: 2,
+                        id: ColumnID(2),
                         ordering: 2,
                         name: "series",
                         kind: "shorttext",
@@ -579,7 +583,7 @@ describe("getDisplayValue()", () => {
             },
           },
           {
-            id: 75,
+            id: ColumnID(75),
             ordering: 9,
             name: "haibikeClassificationSince2018",
             kind: "link",
@@ -597,7 +601,7 @@ describe("getDisplayValue()", () => {
             attributes: {},
             toTable: 153,
             toColumn: {
-              id: 0,
+              id: ColumnID(0),
               ordering: 0,
               name: "ID",
               kind: "concat",
@@ -609,7 +613,7 @@ describe("getDisplayValue()", () => {
               attributes: {},
               concats: [
                 {
-                  id: 1,
+                  id: ColumnID(1),
                   ordering: 1,
                   name: "bikeCategory",
                   kind: "link",
@@ -621,7 +625,7 @@ describe("getDisplayValue()", () => {
                   attributes: {},
                   toTable: 152,
                   toColumn: {
-                    id: 0,
+                    id: ColumnID(0),
                     ordering: 0,
                     name: "ID",
                     kind: "concat",
@@ -633,7 +637,7 @@ describe("getDisplayValue()", () => {
                     attributes: {},
                     concats: [
                       {
-                        id: 1,
+                        id: ColumnID(1),
                         ordering: 1,
                         name: "bikeClass",
                         kind: "link",
@@ -645,7 +649,7 @@ describe("getDisplayValue()", () => {
                         attributes: {},
                         toTable: 151,
                         toColumn: {
-                          id: 0,
+                          id: ColumnID(0),
                           ordering: 0,
                           name: "ID",
                           kind: "concat",
@@ -657,7 +661,7 @@ describe("getDisplayValue()", () => {
                           attributes: {},
                           concats: [
                             {
-                              id: 1,
+                              id: ColumnID(1),
                               ordering: 1,
                               name: "bikeKind",
                               kind: "link",
@@ -669,7 +673,7 @@ describe("getDisplayValue()", () => {
                               attributes: {},
                               toTable: 79,
                               toColumn: {
-                                id: 1,
+                                id: ColumnID(1),
                                 ordering: 1,
                                 name: "identifier",
                                 kind: "shorttext",
@@ -691,7 +695,7 @@ describe("getDisplayValue()", () => {
                               },
                             },
                             {
-                              id: 2,
+                              id: ColumnID(2),
                               ordering: 2,
                               name: "className",
                               kind: "link",
@@ -706,7 +710,7 @@ describe("getDisplayValue()", () => {
                               attributes: {},
                               toTable: 82,
                               toColumn: {
-                                id: 1,
+                                id: ColumnID(1),
                                 ordering: 1,
                                 name: "classname",
                                 kind: "shorttext",
@@ -728,7 +732,7 @@ describe("getDisplayValue()", () => {
                               },
                             },
                             {
-                              id: 3,
+                              id: ColumnID(3),
                               ordering: 3,
                               name: "segment",
                               kind: "link",
@@ -742,7 +746,7 @@ describe("getDisplayValue()", () => {
                               attributes: {},
                               toTable: 150,
                               toColumn: {
-                                id: 1,
+                                id: ColumnID(1),
                                 ordering: 1,
                                 name: "name",
                                 kind: "shorttext",
@@ -766,7 +770,7 @@ describe("getDisplayValue()", () => {
                         },
                       },
                       {
-                        id: 2,
+                        id: ColumnID(2),
                         ordering: 2,
                         name: "identifier",
                         kind: "shorttext",
@@ -785,7 +789,7 @@ describe("getDisplayValue()", () => {
                   },
                 },
                 {
-                  id: 2,
+                  id: ColumnID(2),
                   ordering: 2,
                   name: "identifier",
                   kind: "shorttext",
@@ -894,6 +898,96 @@ describe("getDisplayValue()", () => {
       "de-DE": "",
       "en-GB": "",
       "en-US": "",
+    });
+  });
+
+  describe("status", () => {
+    it("should format status columns", () => {
+      const column: StatusColumn = {
+        id: ColumnID(8),
+        ordering: 8,
+        name: "status-test",
+        kind: "status",
+        multilanguage: false,
+        identifier: false,
+        displayName: {},
+        description: {},
+        separator: false,
+        attributes: {},
+        rules: [
+          {
+            name: "hans",
+            color: "fffaf1",
+            icon: {
+              type: "fa",
+              value: "pencil",
+            },
+            tooltip: {
+              "de-DE": "Dies ist ein tooltip",
+              "en-GB": "UAGH",
+            },
+            displayName: {
+              "de-DE": "Der Displayname",
+              "en-GB": "Uagh",
+            },
+            conditions: {
+              composition: "OR",
+              values: [
+                {
+                  column: ColumnID(3),
+                  operator: "IS",
+                  value: true,
+                },
+                {
+                  column: ColumnID(1),
+                  operator: "IS",
+                  value: "VR19",
+                },
+              ],
+            },
+          },
+        ],
+      };
+
+      const gdv = getDisplayValue()(column);
+
+      expect(gdv({ value: [true] })).toEqual({
+        "de-DE": "Der Displayname",
+        "en-GB": "Uagh",
+        "en-US": "Der Displayname",
+      });
+      expect(gdv({ value: [false] })).toEqual({
+        "de-DE": "",
+        "en-GB": "",
+        "en-US": "",
+      });
+    });
+  });
+
+  describe("currency", () => {
+    const column = {
+      kind: "currency",
+      multilanguage: true,
+      languagetype: "country",
+    } as CurrencyColumn;
+    const value: CurrencyCellValue = {
+      value: { "de-DE": 1234.56, "en-US": 1234.56, "en-GB": 1234.56 },
+    };
+    it("should format currency columns for specific langtags", () => {
+      const formatForGermany = getDisplayValue("de-DE");
+      expect(formatForGermany(column, value)).toEqual({
+        "de-DE": "1.234,56 €",
+        "en-GB": "1.234,56 £",
+        "en-US": "1.234,56 $",
+      });
+    });
+    it("should format currency values for respective languages", () => {
+      const formatForEachCountry = getDisplayValue();
+      expect(formatForEachCountry(column, value)).toEqual({
+        "de-DE": "1.234,56 €",
+        "en-GB": "£1,234.56",
+        "en-US": "$1,234.56",
+      });
     });
   });
 });
