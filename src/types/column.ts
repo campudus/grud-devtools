@@ -1,7 +1,8 @@
 import { TableID } from "./table";
 import { MultilangValue } from "./common";
 
-export type ColumnID = number;
+export type ColumnID = number & { readonly __tag: unique symbol };
+export const ColumnID = (id: number) => id as ColumnID;
 
 export const ColumnKind = {
   attachment: "attachment",
@@ -53,10 +54,28 @@ interface MultiCountryColumn<Kind extends ColumnKind> extends BaseColumn {
   languagetype: "country";
 }
 
+export type StatusConditionValue<T = unknown> = {
+  column: ColumnID;
+  operator: "IS" | "NOT";
+  value: T;
+};
+
+export type StatusCondition = {
+  composition: "OR" | "AND";
+  values: Array<StatusCondition | StatusConditionValue>;
+};
+
 export interface StatusColumn extends BaseColumn {
-  multilanguage: true;
+  multilanguage: false;
   kind: typeof ColumnKind.status;
-  rules: { name: MultilangValue<string> }[];
+  rules: {
+    name: string;
+    displayName: MultilangValue<string>;
+    color: string;
+    icon: { type: string; value: string };
+    tooltip: MultilangValue<string>;
+    conditions: StatusCondition;
+  }[];
 }
 
 type SingleOrMultilangColumn<Kind extends ColumnKind> =

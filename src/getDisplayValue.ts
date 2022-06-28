@@ -144,8 +144,8 @@ export const getDisplayValue =
       );
     const getStatusValue: getValueT<StatusColumn> = (column, value) => {
       const statusValues = column.rules
-        .filter((_, idx) => !!value.at(idx))
-        .map(r.prop("name"));
+        .filter((_, idx) => !!r.nth(idx, value))
+        .map(r.prop("displayName"));
       return joinMultilangValues(langs, statusValues);
     };
 
@@ -153,11 +153,13 @@ export const getDisplayValue =
     // or uncurried        (Column, CellValue) -> MultilangValue<string>
     function go<T extends Column>(
       column: T,
-      cellValue: CellValueForColumn<T>["value"]
+      cellValue: CellValueForColumn<T>["value"] | CellValueForColumn<T>
     ): DisplayValueForColumn<T>;
     function go<T extends Column>(
       _: T
-    ): (_: CellValueForColumn<T>["value"]) => DisplayValueForColumn<T>;
+    ): (
+      _: CellValueForColumn<T>["value"] | CellValueForColumn<T>
+    ) => DisplayValueForColumn<T>;
     function go<T extends Column>(
       column: T,
       cellValue?: CellValueForColumn<T>["value"] | CellValueForColumn<T>

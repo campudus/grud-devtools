@@ -1,5 +1,11 @@
 import { MultilangValue } from "./types";
 import * as r from "ramda";
+import {
+  DEFAULT_LANG,
+  DEFAULT_LOCALE,
+  getLanguage,
+  Language,
+} from "./grud-intl";
 
 export const condSelect =
   <T, V>(conditions: Array<[(_: T) => boolean, V]>) =>
@@ -31,7 +37,17 @@ export const joinMultilangValues = (
       r.join(" "),
       r.filter<string>((dv) => !!dv),
       r.flatten as flattenT,
-      r.map<any, string | string[]>(r.prop(lt))
+      r.map<any, string | string[]>(
+        r.compose(
+          r.find((x) => !!x),
+          r.props([
+            lt,
+            getLanguage(lt as Language),
+            DEFAULT_LOCALE,
+            DEFAULT_LANG,
+          ])
+        ) as any
+      )
     )(vals);
 
     return accum;
