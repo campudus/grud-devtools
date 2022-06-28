@@ -16,8 +16,7 @@ export const map = <Fn extends (..._: any[]) => any>(
 ) => {
   const len = Math.min(...colls.map((c) => c.length));
   const result: ReturnType<Fn>[] = new Array(len);
-  for (let i = 0; i < len; i++)
-    result[i] = fn(...(colls.map((coll) => coll.at(i)) as any));
+  for (let i = 0; i < len; i++) result[i] = fn(...colls.map(r.nth(i)));
   return result;
 };
 

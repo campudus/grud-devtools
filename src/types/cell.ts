@@ -21,6 +21,7 @@ export type GroupCellValue = MultilangCellValue<any>;
 
 export type ConcatCellValue = BaseCellValue<Array<BaseCellValue<unknown>>>;
 export type AttachmentCellValue = SingleLangCellValue<Attachment[]>;
+export type StatusCellValue = SingleLangCellValue<boolean[]>;
 
 export type CellValue =
   | BooleanCellValue

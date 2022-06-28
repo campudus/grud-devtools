@@ -31,5 +31,10 @@
   "dependencies": {
     "full-icu": "^1.4.0",
     "ramda": "^0.28.0"
+  },
+  "exports": {
+    "./types": "./src/types/index.ts",
+    "./predicates": "./src/predicates.ts",
+    "./intl": "./src/grud-intl.ts"
   }
 }

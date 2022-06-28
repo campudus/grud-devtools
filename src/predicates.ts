@@ -12,6 +12,7 @@ import {
   DateColumn,
   DateTimeColumn,
   AttachmentColumn,
+  StatusColumn,
 } from "./types";
 
 export const isMultilangColumn = (column: Column) => column.multilanguage;
@@ -41,3 +42,5 @@ export const isDateColumn = (column: Column): column is DateColumn =>
   column.kind === ColumnKind.date;
 export const isDateTimeColumn = (column: Column): column is DateTimeColumn =>
   column.kind === ColumnKind.datetime;
+export const isStatusColumn = (column: Column): column is StatusColumn =>
+  column.kind === ColumnKind.status;

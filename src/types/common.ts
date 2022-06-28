@@ -47,6 +47,7 @@ type CellValueForColumnMap = {
   [Col.ColumnKind.number]: Cell.NumberCellValue;
   [Col.ColumnKind.richtext]: Cell.RichTextCellValue;
   [Col.ColumnKind.shorttext]: Cell.ShortTextCellValue;
+  [Col.ColumnKind.status]: Cell.StatusCellValue;
   [Col.ColumnKind.text]: Cell.TextCellValue;
 };
 
@@ -62,6 +63,7 @@ type CellDisplayValueForColumnMap = {
   [Col.ColumnKind.number]: MultilangValue<string>;
   [Col.ColumnKind.richtext]: MultilangValue<string>;
   [Col.ColumnKind.shorttext]: MultilangValue<string>;
+  [Col.ColumnKind.status]: MultilangValue<string>;
   [Col.ColumnKind.text]: MultilangValue<string>;
 };
 

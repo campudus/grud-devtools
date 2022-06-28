@@ -4,18 +4,19 @@ import { MultilangValue } from "./common";
 export type ColumnID = number;
 
 export const ColumnKind = {
-  text: "text",
-  richtext: "richtext",
-  shorttext: "shorttext",
-  number: "number",
-  currency: "currency",
-  link: "link",
-  concat: "concat",
-  group: "group",
   attachment: "attachment",
   boolean: "boolean",
+  concat: "concat",
+  currency: "currency",
   date: "date",
   datetime: "datetime",
+  group: "group",
+  link: "link",
+  number: "number",
+  richtext: "richtext",
+  shorttext: "shorttext",
+  status: "status",
+  text: "text",
 } as const;
 export type ColumnKind = typeof ColumnKind[keyof typeof ColumnKind];
 
@@ -24,14 +25,15 @@ export interface ColumnAttributeMap {
 }
 
 interface BaseColumn {
-  id: ColumnID;
-  ordering: number;
-  name: string;
-  identifier: boolean;
-  displayName: MultilangValue<string>;
-  description: MultilangValue<string>;
-  separator: boolean;
   attributes: ColumnAttributeMap;
+  description: MultilangValue<string>;
+  displayName: MultilangValue<string>;
+  format?: string;
+  id: ColumnID;
+  identifier: boolean;
+  name: string;
+  ordering: number;
+  separator: boolean;
 }
 
 interface SingleLangColumn<Kind extends ColumnKind> extends BaseColumn {
@@ -49,6 +51,12 @@ interface MultiCountryColumn<Kind extends ColumnKind> extends BaseColumn {
   multilanguage: true;
   kind: Kind;
   languagetype: "country";
+}
+
+export interface StatusColumn extends BaseColumn {
+  multilanguage: true;
+  kind: typeof ColumnKind.status;
+  rules: { name: MultilangValue<string> }[];
 }
 
 type SingleOrMultilangColumn<Kind extends ColumnKind> =
@@ -104,4 +112,5 @@ export type Column =
   | NumberColumn
   | RichTextColumn
   | ShortTextColumn
+  | StatusColumn
   | TextColumn;

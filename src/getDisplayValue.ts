@@ -14,6 +14,7 @@ import {
   isNumberColumn,
   isRichtextColumn,
   isShorttextColumn,
+  isStatusColumn,
   isTextColumn,
 } from "./predicates";
 import { condSelect, joinMultilangValues, map } from "./tools";
@@ -34,6 +35,7 @@ import {
   LinkColumn,
   MultilangValue,
   NumberColumn,
+  StatusColumn,
 } from "./types";
 
 type Langtag = Country | Locale;
@@ -140,6 +142,12 @@ export const getDisplayValue =
       value.map((v) =>
         getDisplayValue(langs)(userLang)(column.toColumn as any, v)
       );
+    const getStatusValue: getValueT<StatusColumn> = (column, value) => {
+      const statusValues = column.rules
+        .filter((_, idx) => !!value.at(idx))
+        .map(r.prop("name"));
+      return joinMultilangValues(langs, statusValues);
+    };
 
     // Optionally curried  Column -> CellValue -> MultilangValue<string>
     // or uncurried        (Column, CellValue) -> MultilangValue<string>
@@ -169,6 +177,7 @@ export const getDisplayValue =
           [isNumberColumn, getNumberValue],
           [isRichtextColumn, getPlainValue],
           [isShorttextColumn, getPlainValue],
+          [isStatusColumn, getStatusValue],
           [isTextColumn, getPlainValue],
         ])(column);
 
