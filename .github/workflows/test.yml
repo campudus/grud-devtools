@@ -1,23 +1,15 @@
-# name: Test
-# on: push
-# jobs:
-#   minimal:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: nixbuild/nix-quick-install-action@v14
-#       - run: nix-build -A package
-#       - run: npm run test
-
 name: Test
-on:
-  pull_request:
-  push:
+on: [pull_request, push]
+
 jobs:
-  tests:
+  test-and-build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.4.0
-    - uses: cachix/install-nix-action@v15
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
-    - run: nix-build -A package
+      - uses: actions/checkout@v2
+      - uses: nixbuild/nix-quick-install-action@v14
+        with:
+          nix_conf: experimental-features = nix-command flakes
+      - name: build packages
+        run: nix build '.#default'
+      - name: run tests
+        run: nix run '.#checks'
