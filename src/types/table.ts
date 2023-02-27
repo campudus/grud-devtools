@@ -1,4 +1,4 @@
-import { Language, Locale } from "src/grud-intl";
+import { Language, Locale } from "../grud-intl";
 import { MultilangValue } from "./common";
 
 export type TableID = number;
