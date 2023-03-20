@@ -1,5 +1,5 @@
 import { Country, Currency, Language, Locale } from "../grud-intl";
-export { Country, Currency, Language, Locale };
+export type { Country, Currency, Language, Locale };
 export * from "./table";
 export * from "./column";
 export * from "./common";

@@ -1,4 +1,4 @@
-import { Language, Locale } from "src/grud-intl DENOIFY: UNKNOWN NODE BUILTIN";
+import { Language, Locale } from "../grud-intl.ts";
 import { MultilangValue } from "./common.ts";
 
 export type TableID = number;
