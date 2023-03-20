@@ -38,7 +38,7 @@ import {
   StatusColumn,
 } from "./types/index.ts";
 
-type Langtag = Country | Locale;
+export type Langtag = Country | Locale;
 type formatValueT = (lt: Langtag, value: any) => string;
 
 const mkDisplayMap = (
