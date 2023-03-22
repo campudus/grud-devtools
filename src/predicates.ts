@@ -31,7 +31,7 @@ export const isGroupColumn = (column: Column): column is ConcatColumn =>
 export const isLinkColumn = (column: Column): column is LinkColumn =>
   column.kind === ColumnKind.link;
 export const isNumberColumn = (column: Column): column is NumberColumn =>
-  column.kind === ColumnKind.number;
+  column.kind === ColumnKind.numeric;
 export const isRichtextColumn = (column: Column): column is RichTextColumn =>
   column.kind === ColumnKind.richtext;
 export const isShorttextColumn = (column: Column): column is ShortTextColumn =>
