@@ -13,7 +13,7 @@ export const ColumnKind = {
   datetime: "datetime",
   group: "group",
   link: "link",
-  number: "number",
+  numeric: "numeric",
   richtext: "richtext",
   shorttext: "shorttext",
   status: "status",
@@ -112,7 +112,7 @@ export interface LinkColumn extends BaseColumn {
 export type AttachmentColumn = SingleOrMultilangColumn<"attachment">;
 export type BooleanColumn = SingleLangColumn<"boolean">;
 export type CurrencyColumn = MultiCountryColumn<"currency">;
-export type NumberColumn = SingleOrMultilangColumn<"number">;
+export type NumberColumn = SingleOrMultilangColumn<"numeric">;
 export type RichTextColumn = SingleOrMultilangColumn<"richtext">;
 export type ShortTextColumn = SingleOrMultilangColumn<"shorttext">;
 export type TextColumn = SingleOrMultilangColumn<"text">;
