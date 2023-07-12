@@ -31,7 +31,6 @@ import {
 const langtags: Locale[] = ["de-DE", "en-GB", "en-US"];
 
 describe("getDisplayValue()", () => {
-  it("breaks", () => expect(1).toBe(2));
   const getDisplayValue = gdv.getDisplayValue(langtags);
   describe("bad column type", () => {
     expect(() =>
