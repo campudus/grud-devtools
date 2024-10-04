@@ -1,0 +1,5 @@
+{
+  "vitest.nodeEnv": {
+    "TZ": "Europe/Berlin"
+  }
+}
