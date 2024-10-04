@@ -1,4 +1,4 @@
-import { Attachment, ISODateString, MultilangValue } from "./common";
+import type { Attachment, ISODateString, MultilangValue } from "./common.ts";
 
 export type SingleLangCellValue<T> = { value: T };
 export type MultilangCellValue<T> = {

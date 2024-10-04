@@ -1,5 +1,5 @@
-import * as Col from "./column";
-import * as Cell from "./cell";
+import type * as Col from "./column.ts";
+import type * as Cell from "./cell.ts";
 
 export type MultilangValue<T> = {
   [langtag: string]: T | undefined;

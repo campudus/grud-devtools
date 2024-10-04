@@ -1,18 +1,15 @@
-import * as gdv from "./getDisplayValue";
-import {
+import * as gdv from "./getDisplayValue.ts";
+import type {
   AttachmentCellValue,
   AttachmentColumn,
   BooleanColumn,
-  ColumnID,
   CurrencyCellValue,
   CurrencyColumn,
   DateCellValue,
   DateColumn,
   DateTimeCellValue,
   DateTimeColumn,
-  FolderID,
   GroupColumn,
-  ISODateString,
   LinkCellValue,
   LinkColumn,
   Locale,
@@ -25,8 +22,10 @@ import {
   StatusColumn,
   TextCellValue,
   TextColumn,
-  UUID,
-} from "./types";
+} from "./types/index.ts";
+import { ColumnID, FolderID, ISODateString, UUID } from "./types/index.ts";
+
+import { describe, expect, it } from "vitest";
 
 const langtags: Locale[] = ["de-DE", "en-GB", "en-US"];
 

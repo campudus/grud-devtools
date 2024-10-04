@@ -1,5 +1,5 @@
-import { TableID } from "./table";
-import { MultilangValue } from "./common";
+import type { TableID } from "./table.ts";
+import type { MultilangValue } from "./common.ts";
 
 export type ColumnID = number & { readonly __tag: unique symbol };
 export const ColumnID = (id: number) => id as ColumnID;

@@ -1,4 +1,5 @@
-import * as i from "./grud-intl";
+import * as i from "./grud-intl.ts";
+import { describe, it, expect } from "vitest"
 
 describe("grud-intl", () => {
   describe("isCountry()", () => {

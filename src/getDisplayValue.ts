@@ -1,6 +1,6 @@
-import * as i from "./grud-intl";
 import * as r from "ramda";
-import { Country, Locale } from "./grud-intl";
+import type { Country, Locale } from "./grud-intl.ts";
+import * as i from "./grud-intl.ts";
 import {
   isAttachmentColumn,
   isBooleanColumn,
@@ -16,9 +16,9 @@ import {
   isShorttextColumn,
   isStatusColumn,
   isTextColumn,
-} from "./predicates";
-import { condSelect, joinMultilangValues, map } from "./tools";
-import {
+} from "./predicates.ts";
+import { condSelect, joinMultilangValues, map } from "./tools.ts";
+import type {
   Attachment,
   AttachmentCellValue,
   AttachmentColumn,
@@ -36,7 +36,7 @@ import {
   MultilangValue,
   NumberColumn,
   StatusColumn,
-} from "./types";
+} from "./types/index.ts";
 
 export type Langtag = Country | Locale;
 type formatValueT = (lt: Langtag, value: any) => string;
@@ -87,7 +87,7 @@ const attachmentToMultilang = (langs: Langtag[]) => (att: Attachment) =>
 export const getDisplayValue =
   (
     langs: Array<Langtag> // Display values are generated for these langtags
-  ) =>
+  ): (userLang?: Langtag) => { <T extends Column>(column: T, cellValue: CellValueForColumn<T> | CellValueForColumn<T>["value"]): DisplayValueForColumn<T>; <T extends Column>(_: T): (_: CellValueForColumn<T> | CellValueForColumn<T>["value"]) => DisplayValueForColumn<T>; } =>
     (
       userLang?: Langtag // Numbers and dates are formatted for this langtag
       // If undefined, numbers and dates are formatted per langtag
@@ -145,7 +145,7 @@ export const getDisplayValue =
       const getStatusValue: getValueT<StatusColumn> = (column, value) => {
         const statusValues = column.rules
           .filter((_, idx) => !!r.nth(idx, value))
-          .map(r.prop("displayName"));
+          .map(r.prop("displayName")) as MultilangValue<string>[];
         return joinMultilangValues(langs, statusValues);
       };
 

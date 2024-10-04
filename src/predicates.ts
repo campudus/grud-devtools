@@ -1,19 +1,19 @@
-import {
-  Column,
-  ColumnKind,
-  CurrencyColumn,
+import type {
+  AttachmentColumn,
   BooleanColumn,
+  Column,
   ConcatColumn,
+  CurrencyColumn,
+  DateColumn,
+  DateTimeColumn,
   LinkColumn,
   NumberColumn,
   RichTextColumn,
   ShortTextColumn,
-  TextColumn,
-  DateColumn,
-  DateTimeColumn,
-  AttachmentColumn,
   StatusColumn,
-} from "./types";
+  TextColumn,
+} from "./types/index.ts";
+import { ColumnKind } from "./types/index.ts";
 
 export const isMultilangColumn = (column: Column) => column.multilanguage;
 

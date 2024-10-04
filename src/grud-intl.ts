@@ -263,15 +263,15 @@ export const splitLocale = (
   return isLocale(locale)
     ? [str.substring(0, 2) as Language, str.substring(3) as Country]
     : isCountry(str)
-    ? [undefined, str as Country]
-    : isLanguage(str)
-    ? [str as Language, undefined]
-    : [undefined, undefined];
+      ? [undefined, str as Country]
+      : isLanguage(str)
+        ? [str as Language, undefined]
+        : [undefined, undefined];
 };
 
-export const getLanguage = (locale: Locale | Language) =>
+export const getLanguage = (locale: Locale | Language): Language =>
   splitLocale(locale)[0] ?? DEFAULT_LANG;
-export const getCountry = (locale: Locale) => splitLocale(locale)[1];
+export const getCountry = (locale: Locale): Country | undefined => splitLocale(locale)[1];
 export const getCurrency = (locale: Locale | Country): Currency => {
   const countryCode = isCountry(locale) ? locale : getCountry(locale);
   return (
@@ -287,7 +287,7 @@ export function formatCurrency(
 export function formatCurrency(
   lt: Country | Locale,
   currency: Currency
-): (_: number | BigInt) => string;
+): (_: number | bigint) => string;
 export function formatCurrency(
   langtag: Country | Locale = DEFAULT_LOCALE,
   currency = DEFAULT_CURRENCY,
