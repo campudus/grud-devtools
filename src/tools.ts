@@ -8,13 +8,12 @@ import {
 import type { MultilangValue } from "./types/index.ts";
 
 export const condSelect =
-  <T, V>(conditions: Array<[(_: T) => boolean, V]>) =>
-    (value: T): V => {
-      for (const [pred, result] of conditions) {
-        if (pred(value)) return result;
-      }
-      throw new Error("Non exhaustive pattern");
-    };
+  <T, V>(conditions: Array<[(_: T) => boolean, V]>) => (value: T): V => {
+    for (const [pred, result] of conditions) {
+      if (pred(value)) return result;
+    }
+    throw new Error("Non exhaustive pattern");
+  };
 
 export const map = <Fn extends (..._: any[]) => any>(
   fn: Fn,
@@ -29,7 +28,7 @@ export const map = <Fn extends (..._: any[]) => any>(
 type flattenT = (_: Array<string | string[]>) => string[];
 export const joinMultilangValues = (
   langs: string[],
-  vals: Array<MultilangValue<string>>
+  vals: Array<MultilangValue<string>>,
 ): MultilangValue<string> =>
   langs.reduce((accum, lt) => {
     accum[lt] = r.compose(
@@ -45,9 +44,9 @@ export const joinMultilangValues = (
             getLanguage(lt as Language),
             DEFAULT_LOCALE,
             DEFAULT_LANG,
-          ])
-        ) as any
-      )
+          ]),
+        ) as any,
+      ),
     )(vals);
 
     return accum;

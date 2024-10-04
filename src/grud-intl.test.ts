@@ -1,5 +1,5 @@
 import * as i from "./grud-intl.ts";
-import { describe, it, expect } from "vitest"
+import { describe, expect, it } from "vitest";
 
 describe("grud-intl", () => {
   describe("isCountry()", () => {
@@ -88,7 +88,7 @@ describe("grud-intl", () => {
       "should find currency $currency for langtag $langtag",
       ({ langtag, currency }) => {
         expect(i.getCurrency(langtag)).toBe(currency);
-      }
+      },
     );
   });
 
@@ -105,7 +105,7 @@ describe("grud-intl", () => {
       ({ langtag, currency, result }) => {
         // be aware of uncommon white space in the results
         expect(i.formatCurrency(langtag, currency, amount)).toBe(result);
-      }
+      },
     );
   });
 

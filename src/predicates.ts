@@ -18,7 +18,7 @@ import { ColumnKind } from "./types/index.ts";
 export const isMultilangColumn = (column: Column) => column.multilanguage;
 
 export const isAttachmentColumn = (
-  column: Column
+  column: Column,
 ): column is AttachmentColumn => column.kind === ColumnKind.attachment;
 export const isBooleanColumn = (column: Column): column is BooleanColumn =>
   column.kind === ColumnKind.boolean;
