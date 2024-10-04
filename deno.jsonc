@@ -17,7 +17,7 @@
   "tasks": {
     "cache": "deno cache mod.ts --reload",
     // deno needs to be 1.46.x for this to work with vitest, also use `--pool=threads --no-file-parallelism` to prevent "Uncaught (in promise) BrokenPipe: Broken pipe (os error 32)"
-    "test": "TZ='Europe/Berlin' ENV=integration-testing deno run --allow-read --allow-env --allow-ffi --allow-sys --allow-run --allow-net --allow-write --lock-write --lock deno-test.lock npm:vitest --run --pool=threads --no-file-parallelism"
+    "test": "TZ='Europe/Berlin' ENV=integration-testing deno run --allow-read --allow-env --allow-ffi --allow-sys --allow-run --allow-net --allow-write --node-modules-dir npm:vitest --run --pool=threads --no-file-parallelism"
   },
   "fmt": {
     "exclude": [
