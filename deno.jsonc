@@ -1,6 +1,7 @@
 {
   "name": "@grud/devtools",
   "version": "0.3.4",
+  "license": "ISC",
   "imports": {
     "@types/lodash/fp": "npm:@types/lodash@4.14.192/fp",
     "lodash/fp": "npm:lodash@4.17.21/fp.js",
