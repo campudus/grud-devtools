@@ -29,5 +29,14 @@
     "exclude": [
       "**/*.test.ts"
     ]
+  },
+  "publish": {
+    "exclude": [
+      ".vite",
+      ".github",
+      ".vscode",
+      "node_modules",
+      "coverage"
+    ]
   }
 }
