@@ -1,0 +1,23 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:ramda@^0.30.1": "npm:ramda@0.30.1"
+    },
+    "npm": {
+      "ramda@0.30.1": {
+        "integrity": "sha512-tEF5I22zJnuclswcZMc8bDIrwRHRzf+NqVEmqg50ShAZMP7MWeR/RGDthfM/p+BlqvF2fXAzpn8i+SJcYD3alw==",
+        "dependencies": {}
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "npm:@types/lodash@4.14.192",
+      "npm:lodash@4.17.21",
+      "npm:ramda@^0.30.1",
+      "npm:vitest@^2.1.1"
+    ]
+  }
+}
