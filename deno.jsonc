@@ -18,5 +18,15 @@
     "cache": "deno cache mod.ts --reload",
     // deno needs to be 1.46.x for this to work with vitest
     "test": "TZ='Europe/Berlin' ENV=integration-testing deno run --allow-read --allow-env --allow-ffi --allow-sys --allow-run --allow-net --allow-write --lock-write --lock deno-test.lock npm:vitest --run"
+  },
+  "fmt": {
+    "exclude": [
+      ".vite"
+    ]
+  },
+  "lint": {
+    "exclude": [
+      "**/*.test.ts"
+    ]
   }
 }

@@ -5,7 +5,7 @@ import {
   getLanguage,
   type Language,
 } from "./grud-intl.ts";
-import type { MultilangValue } from "./types/index.ts";
+import type { grudAny, MultilangValue } from "./types/index.ts";
 
 export const condSelect =
   <T, V>(conditions: Array<[(_: T) => boolean, V]>) => (value: T): V => {
@@ -15,7 +15,7 @@ export const condSelect =
     throw new Error("Non exhaustive pattern");
   };
 
-export const map = <Fn extends (..._: any[]) => any>(
+export const map = <Fn extends (..._: grudAny[]) => grudAny>(
   fn: Fn,
   ...colls: Parameters<Fn>[number][][]
 ) => {
@@ -36,7 +36,7 @@ export const joinMultilangValues = (
       r.join(" "),
       r.filter<string>((dv: string) => !!dv),
       r.flatten as flattenT,
-      r.map<any, string | string[]>(
+      r.map<grudAny, string | string[]>(
         r.compose(
           r.find((x: string) => !!x),
           r.props([
@@ -45,7 +45,7 @@ export const joinMultilangValues = (
             DEFAULT_LOCALE,
             DEFAULT_LANG,
           ]),
-        ) as any,
+        ) as grudAny,
       ),
     )(vals);
 

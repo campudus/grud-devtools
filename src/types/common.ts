@@ -5,6 +5,9 @@ export type MultilangValue<T> = {
   [langtag: string]: T | undefined;
 };
 
+// deno-lint-ignore no-explicit-any
+export type grudAny = any;
+
 export type UUID = string & { readonly __tag: unique symbol };
 export const UUID = (str: string) => str as UUID;
 
@@ -12,7 +15,7 @@ export type FolderID = number & { readonly __tag: unique symbol };
 export const FolderID = (id: number) => id as FolderID;
 
 export type ISODateString = string & { readonly __tag: unique symbol };
-export const ISODateString = (date: string) => {
+export const ISODateString = (date: string): ISODateString => {
   const ISODateRegex = /\d{4}-\d\d-\d\d(T\d\d:\d\d:\d\d(\.\d{3})?)?/;
   if (!ISODateRegex.test(date)) {
     throw new Error(`${date} is not an ISO date`);

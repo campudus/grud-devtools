@@ -32,6 +32,7 @@ import type {
   DateTimeColumn,
   DisplayValueForColumn,
   GroupColumn,
+  grudAny,
   LinkColumn,
   MultilangValue,
   NumberColumn,
@@ -39,7 +40,7 @@ import type {
 } from "./types/index.ts";
 
 export type Langtag = Country | Locale;
-type formatValueT = (lt: Langtag, value: any) => string;
+type formatValueT = (lt: Langtag, value: grudAny) => string;
 
 const mkDisplayMap = (
   langs: Array<Langtag>,
@@ -48,7 +49,7 @@ const mkDisplayMap = (
   format?: formatValueT,
 ) => {
   const extractValue = isMultilangColumn(column)
-    ? (lt: Langtag) => (value as any)[lt]
+    ? (lt: Langtag) => (value as grudAny)[lt]
     : () => value;
   const getValue = format
     ? (lt: Langtag) => format(lt, extractValue(lt))
@@ -65,7 +66,7 @@ type getValueT<T extends Column> = (
 ) => DisplayValueForColumn<T>;
 
 const attachmentToStringForLang = (lt: Langtag, att: Attachment) => {
-  const fallbackLt = i.getLanguage(lt as any);
+  const fallbackLt = i.getLanguage(lt as grudAny);
 
   return (
     att.title[lt] ||
@@ -112,9 +113,9 @@ export const getDisplayValue = (
   };
 
   const getConcatValue: getValueT<ConcatColumn> = (column, values) =>
-    getNestedValues(column.concats, values as any);
+    getNestedValues(column.concats, values as grudAny);
   const getGroupValue: getValueT<GroupColumn> = (column, values) =>
-    getNestedValues(column.groups, values as any);
+    getNestedValues(column.groups, values as grudAny);
 
   const getAttachmentValues: getValueT<AttachmentColumn> = (_, value) =>
     (value as unknown as AttachmentCellValue["value"]).map(
@@ -151,7 +152,7 @@ export const getDisplayValue = (
   };
   const getLinkValue: getValueT<LinkColumn> = (column, value) =>
     value.map((v) =>
-      getDisplayValue(langs)(userLang)(column.toColumn as any, v)
+      getDisplayValue(langs)(userLang)(column.toColumn as grudAny, v)
     );
   const getStatusValue: getValueT<StatusColumn> = (column, value) => {
     const statusValues = column.rules
@@ -179,7 +180,7 @@ export const getDisplayValue = (
       return (value: CellValueForColumn<T>["value"]) => go(column, value);
     }
     try {
-      const fn = condSelect<Column, getValueT<any>>([
+      const fn = condSelect<Column, getValueT<grudAny>>([
         [isAttachmentColumn, getAttachmentValues],
         [isBooleanColumn, getBooleanValue],
         [isConcatColumn, getConcatValue],
@@ -197,7 +198,7 @@ export const getDisplayValue = (
 
       return cellValue !== undefined && cellValue !== null
         ? fn(column, (cellValue as CellValue).value ?? cellValue)
-        : ({} as any);
+        : ({} as grudAny);
     } catch (err) {
       if (/Non exhaustive/.test((err as Error).message)) {
         console.error("Column kind not found:", column.kind);

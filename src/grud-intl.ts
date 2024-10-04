@@ -1,3 +1,5 @@
+import type { grudAny } from "../mod.ts";
+
 const currencyCodeMap = {
   AE: "AED", // United Arab Emirates
   AT: "EUR", // Austria
@@ -276,7 +278,8 @@ export const getCountry = (locale: Locale): Country | undefined =>
 export const getCurrency = (locale: Locale | Country): Currency => {
   const countryCode = isCountry(locale) ? locale : getCountry(locale);
   return (
-    (countryCode && (currencyCodeMap as any)[countryCode]) ?? DEFAULT_CURRENCY
+    (countryCode && (currencyCodeMap as grudAny)[countryCode]) ??
+      DEFAULT_CURRENCY
   );
 };
 

@@ -17,6 +17,7 @@ export type BooleanCellValue = BaseCellValue<boolean>;
 export type LinkCellValue = SingleLangCellValue<
   Array<CellValue & { id: number }>
 >;
+// deno-lint-ignore no-explicit-any
 export type GroupCellValue = MultilangCellValue<any>;
 
 export type ConcatCellValue = BaseCellValue<Array<BaseCellValue<unknown>>>;

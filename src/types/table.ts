@@ -3,6 +3,7 @@ import type { MultilangValue } from "./common.ts";
 
 export type TableID = number;
 
+// deno-lint-ignore no-explicit-any
 export type TableAttributeSet = Record<string, any>;
 
 export type TableGroup = {
