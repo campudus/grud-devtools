@@ -21,7 +21,7 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v2.1.7
-      
+
       - name: Verify formatting
         run: deno fmt --check
 
