@@ -6,7 +6,8 @@ All sub packages' exports are also exported by the package's main entry point.
 
 ## Publishing Workflow
 
-Publishing is done in the jsr way. You can publish manually or automatically via github actions, which is the default and recommended way.
+Publishing is done in the jsr way. You can publish manually or automatically via
+github actions, which is the default and recommended way.
 
 Steps to follow:
 
@@ -14,11 +15,13 @@ Steps to follow:
 2. Update the version in `deno.jsonc` in semver format
 3. Document your changes in the `CHANGELOG.md` file
 4. Create a pull request and ask a nice colleague to approve your great changes
-5. Merge the pull request and wait for the github action to publish the new version
+5. Merge the pull request and wait for the github action to publish the new
+   version
 
 ## Install
 
-Go to [https://jsr.io/@grud/devtools](https://jsr.io/@grud/devtools), choose your runtime and follow the instructions.
+Go to [https://jsr.io/@grud/devtools](https://jsr.io/@grud/devtools), choose
+your runtime and follow the instructions.
 
 ## Types
 

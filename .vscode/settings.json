@@ -6,6 +6,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
   },
+  "[markdown]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
   "editor.formatOnSave": true,
   "vitest.nodeEnv": {
     "TZ": "Europe/Berlin"
