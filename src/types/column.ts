@@ -1,5 +1,6 @@
-import type { TableID } from "./table.ts";
-import type { MultilangValue } from "./common.ts";
+import { Country } from "../grud-intl.ts";
+import { MultilangValue } from "./common.ts";
+import { TableID } from "./table.ts";
 
 export type ColumnID = number & { readonly __tag: unique symbol };
 export const ColumnID = (id: number) => id as ColumnID;
@@ -19,10 +20,20 @@ export const ColumnKind = {
   status: "status",
   text: "text",
 } as const;
-export type ColumnKind = typeof ColumnKind[keyof typeof ColumnKind];
+export type ColumnKind = (typeof ColumnKind)[keyof typeof ColumnKind];
+
+export type ColumnAttributeString = { type: "string"; value: string };
+export type ColumnAttributeNumber = { type: "number"; value: number };
+export type ColumnAttributeBoolean = { type: "boolean"; value: boolean };
+export type ColumnAttributeArray = { type: "array"; value: ColumnAttribute[] };
+export type ColumnAttribute =
+  | ColumnAttributeString
+  | ColumnAttributeBoolean
+  | ColumnAttributeNumber
+  | ColumnAttributeArray;
 
 export interface ColumnAttributeMap {
-  [name: string]: boolean | undefined;
+  [key: string]: ColumnAttribute;
 }
 
 interface BaseColumn {
@@ -52,6 +63,7 @@ interface MultiCountryColumn<Kind extends ColumnKind> extends BaseColumn {
   multilanguage: true;
   kind: Kind;
   languagetype: "country";
+  countryCodes: Array<Country>;
 }
 
 export type StatusConditionValue<T = unknown> = {
