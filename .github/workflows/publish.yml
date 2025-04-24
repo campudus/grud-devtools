@@ -2,7 +2,7 @@ name: Deno CI
 
 on:
   push:
-    branches: [jsr]
+    branches: [main]
 
 jobs:
   publish:
