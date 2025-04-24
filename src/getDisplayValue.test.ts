@@ -1,18 +1,15 @@
-import * as gdv from "./getDisplayValue";
-import {
+import * as gdv from "./getDisplayValue.ts";
+import type {
   AttachmentCellValue,
   AttachmentColumn,
   BooleanColumn,
-  ColumnID,
   CurrencyCellValue,
   CurrencyColumn,
   DateCellValue,
   DateColumn,
   DateTimeCellValue,
   DateTimeColumn,
-  FolderID,
   GroupColumn,
-  ISODateString,
   LinkCellValue,
   LinkColumn,
   Locale,
@@ -25,17 +22,21 @@ import {
   StatusColumn,
   TextCellValue,
   TextColumn,
-  UUID,
-} from "./types";
+} from "./types/index.ts";
+import { ColumnID, FolderID, ISODateString, UUID } from "./types/index.ts";
+
+import { describe, expect, it } from "vitest";
 
 const langtags: Locale[] = ["de-DE", "en-GB", "en-US"];
 
 describe("getDisplayValue()", () => {
   const getDisplayValue = gdv.getDisplayValue(langtags);
   describe("bad column type", () => {
-    expect(() =>
-      getDisplayValue()({ kind: "no-such-kind" } as any)(null as any)
-    ).toThrowError();
+    it("should fail to format bad column", () => {
+      expect(() =>
+        getDisplayValue()({ kind: "no-such-kind" } as any)(null as any)
+      ).toThrowError();
+    });
   });
   describe("shorttext", () => {
     it("should get single lang shorttext values", () => {
@@ -141,7 +142,7 @@ describe("getDisplayValue()", () => {
     it("should format single lang number values for specific langs when no user lang is given", () => {
       const column: NumberColumn = {
         id: 1,
-        kind: "number",
+        kind: "numeric",
         multilanguage: false,
       } as any;
       const value: NumberCellValue = { value: 1234.56 };
@@ -155,7 +156,7 @@ describe("getDisplayValue()", () => {
     it("should format single lang number values for all values to specified user Lang", () => {
       const column: NumberColumn = {
         id: 1,
-        kind: "number",
+        kind: "numeric",
         multilanguage: false,
       } as any;
       const value: NumberCellValue = { value: 1234.56 };
@@ -877,27 +878,29 @@ describe("getDisplayValue()", () => {
   });
 
   describe("boolean", () => {
-    const column: BooleanColumn = {
-      multilanguage: false,
-      id: 1,
-      name: "oh boole mio",
-      displayName: { "de-DE": "Ja", "en-US": "Yes" },
-      description: {},
-      kind: "boolean",
-      identifier: true,
-    } as unknown as BooleanColumn;
+    it("should format boolean columns", () => {
+      const column: BooleanColumn = {
+        multilanguage: false,
+        id: 1,
+        name: "oh boole mio",
+        displayName: { "de-DE": "Ja", "en-US": "Yes" },
+        description: {},
+        kind: "boolean",
+        identifier: true,
+      } as unknown as BooleanColumn;
 
-    const gdv = getDisplayValue()(column);
+      const gdv = getDisplayValue()(column);
 
-    expect(gdv({ value: true })).toEqual({
-      "de-DE": "Ja",
-      "en-GB": "oh boole mio",
-      "en-US": "Yes",
-    });
-    expect(gdv({ value: false })).toEqual({
-      "de-DE": "",
-      "en-GB": "",
-      "en-US": "",
+      expect(gdv({ value: true })).toEqual({
+        "de-DE": "Ja",
+        "en-GB": "oh boole mio",
+        "en-US": "Yes",
+      });
+      expect(gdv({ value: false })).toEqual({
+        "de-DE": "",
+        "en-GB": "",
+        "en-US": "",
+      });
     });
   });
 

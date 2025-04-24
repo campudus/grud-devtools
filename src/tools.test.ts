@@ -1,4 +1,5 @@
-import * as t from "./tools";
+import * as t from "./tools.ts";
+import { describe, expect, it } from "vitest";
 
 describe("tools", () => {
   it("condSelect()", () => {

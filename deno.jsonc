@@ -1,0 +1,40 @@
+{
+  "name": "@grud/devtools",
+  "version": "0.3.6",
+  "license": "Apache-2.0",
+  "imports": {
+    "ramda": "npm:ramda@^0.30.1",
+    "vitest": "npm:vitest@^2.1.1"
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./types": "./src/types/index.ts",
+    "./predicates": "./src/predicates.ts",
+    "./intl": "./src/grud-intl.ts",
+    "./getDisplayValue": "./src/getDisplayValue.ts"
+  },
+  "tasks": {
+    "cache": "deno cache mod.ts --reload",
+    // deno needs to be 1.46.x for this to work with vitest, also use `--pool=threads --no-file-parallelism` to prevent "Uncaught (in promise) BrokenPipe: Broken pipe (os error 32)"
+    "test": "TZ='Europe/Berlin' ENV=integration-testing deno run --allow-read --allow-env --allow-ffi --allow-sys --allow-run --allow-net --allow-write --node-modules-dir npm:vitest --run --pool=threads --no-file-parallelism"
+  },
+  "fmt": {
+    "exclude": [
+      ".vite"
+    ]
+  },
+  "lint": {
+    "exclude": [
+      "**/*.test.ts"
+    ]
+  },
+  "publish": {
+    "exclude": [
+      ".vite",
+      ".github",
+      ".vscode",
+      "node_modules",
+      "coverage"
+    ]
+  }
+}

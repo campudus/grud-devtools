@@ -1,3 +1,5 @@
+import type { grudAny } from "../mod.ts";
+
 const currencyCodeMap = {
   AE: "AED", // United Arab Emirates
   AT: "EUR", // Austria
@@ -256,7 +258,7 @@ export const isLocale = (str?: string): str is Locale =>
   isCountry(str.substring(3));
 
 export const splitLocale = (
-  locale?: Locale | Language | Country
+  locale?: Locale | Language | Country,
 ): [Language | undefined, Country | undefined] => {
   const str: string = locale ?? "";
 
@@ -269,29 +271,31 @@ export const splitLocale = (
     : [undefined, undefined];
 };
 
-export const getLanguage = (locale: Locale | Language) =>
+export const getLanguage = (locale: Locale | Language): Language =>
   splitLocale(locale)[0] ?? DEFAULT_LANG;
-export const getCountry = (locale: Locale) => splitLocale(locale)[1];
+export const getCountry = (locale: Locale): Country | undefined =>
+  splitLocale(locale)[1];
 export const getCurrency = (locale: Locale | Country): Currency => {
   const countryCode = isCountry(locale) ? locale : getCountry(locale);
   return (
-    (countryCode && (currencyCodeMap as any)[countryCode]) ?? DEFAULT_CURRENCY
+    (countryCode && (currencyCodeMap as grudAny)[countryCode]) ??
+      DEFAULT_CURRENCY
   );
 };
 
 export function formatCurrency(
   lt: Country | Locale,
   currency: Currency,
-  value: number
+  value: number,
 ): string;
 export function formatCurrency(
   lt: Country | Locale,
-  currency: Currency
-): (_: number | BigInt) => string;
+  currency: Currency,
+): (_: number | bigint) => string;
 export function formatCurrency(
   langtag: Country | Locale = DEFAULT_LOCALE,
   currency = DEFAULT_CURRENCY,
-  value: number = 0
+  value: number = 0,
 ) {
   const formatter = new Intl.NumberFormat(langtag, {
     style: "currency",
@@ -304,7 +308,7 @@ export function formatNumber(lt: Country | Locale, value: number): string;
 export function formatNumber(lt: Country | Locale): (_: number) => string;
 export function formatNumber(
   langtag: Country | Locale = DEFAULT_LOCALE,
-  value: number = 0
+  value: number = 0,
 ) {
   const formatter = new Intl.NumberFormat(langtag);
   return arguments.length < 2 ? formatter.format : formatter.format(value);
@@ -314,10 +318,11 @@ export function formatDate(lt: Country | Locale, value: string): string;
 export function formatDate(lt: Country | Locale): (_: string) => string;
 export function formatDate(
   langtag: Country | Locale = DEFAULT_LOCALE,
-  date?: string
+  date?: string,
 ) {
-  if (arguments.length < 2)
+  if (arguments.length < 2) {
     return (theDate: string) => formatDate(langtag, theDate);
+  }
   return new Intl.DateTimeFormat(langtag, {
     year: "numeric",
     month: "numeric",
@@ -329,10 +334,11 @@ export function formatDateTime(lt: Country | Locale, ISODate: string): string;
 export function formatDateTime(lt: Country | Locale): (_: string) => string;
 export function formatDateTime(
   langtag: Country | Locale = DEFAULT_LOCALE,
-  ISODateString?: string
+  ISODateString?: string,
 ) {
-  if (arguments.length < 2)
+  if (arguments.length < 2) {
     return (theDate: string) => formatDate(langtag, theDate);
+  }
   return new Intl.DateTimeFormat(langtag, {
     year: "numeric",
     month: "numeric",
