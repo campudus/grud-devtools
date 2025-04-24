@@ -21,8 +21,18 @@ export const ColumnKind = {
 } as const;
 export type ColumnKind = typeof ColumnKind[keyof typeof ColumnKind];
 
+export type ColumnAttributeString = { type: "string"; value: string };
+export type ColumnAttributeNumber = { type: "number"; value: number };
+export type ColumnAttributeBoolean = { type: "boolean"; value: boolean };
+export type ColumnAttributeArray = { type: "array"; value: ColumnAttribute[] };
+export type ColumnAttribute =
+  | ColumnAttributeString
+  | ColumnAttributeBoolean
+  | ColumnAttributeNumber
+  | ColumnAttributeArray;
+
 export interface ColumnAttributeMap {
-  [name: string]: boolean | undefined;
+  [key: string]: ColumnAttribute;
 }
 
 interface BaseColumn {
