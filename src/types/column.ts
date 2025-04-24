@@ -1,6 +1,6 @@
-import { Country } from "../grud-intl.ts";
-import { MultilangValue } from "./common.ts";
-import { TableID } from "./table.ts";
+import type { Country } from "../grud-intl.ts";
+import type { MultilangValue } from "./common.ts";
+import type { TableID } from "./table.ts";
 
 export type ColumnID = number & { readonly __tag: unique symbol };
 export const ColumnID = (id: number) => id as ColumnID;
