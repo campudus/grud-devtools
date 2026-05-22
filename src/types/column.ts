@@ -13,6 +13,7 @@ export const ColumnKind = {
   date: "date",
   datetime: "datetime",
   group: "group",
+  integer: "integer",
   link: "link",
   numeric: "numeric",
   richtext: "richtext",
@@ -21,6 +22,14 @@ export const ColumnKind = {
   text: "text",
 } as const;
 export type ColumnKind = (typeof ColumnKind)[keyof typeof ColumnKind];
+
+export const LanguageType = {
+  language: "language",
+  country: "country",
+  neutral: "neutral",
+} as const;
+
+export type LanguageType = (typeof LanguageType)[keyof typeof LanguageType];
 
 export type ColumnAttributeString = { type: "string"; value: string };
 export type ColumnAttributeNumber = { type: "number"; value: number };
@@ -43,9 +52,12 @@ interface BaseColumn {
   format?: string;
   id: ColumnID;
   identifier: boolean;
+  languagetype?: LanguageType;
   name: string;
   ordering: number;
   separator: boolean;
+  minLength?: number;
+  maxLength?: number;
 }
 
 interface SingleLangColumn<Kind extends ColumnKind> extends BaseColumn {
@@ -56,7 +68,7 @@ interface SingleLangColumn<Kind extends ColumnKind> extends BaseColumn {
 interface MultilangColumn<Kind extends ColumnKind> extends BaseColumn {
   multilanguage: true;
   kind: Kind;
-  languagetype?: "language";
+  languagetype: "language";
 }
 
 interface MultiCountryColumn<Kind extends ColumnKind> extends BaseColumn {
@@ -125,6 +137,10 @@ export type AttachmentColumn = SingleOrMultilangColumn<"attachment">;
 export type BooleanColumn = SingleLangColumn<"boolean">;
 export type CurrencyColumn = MultiCountryColumn<"currency">;
 export type NumberColumn = SingleOrMultilangColumn<"numeric">;
+
+export type IntegerColumn = SingleOrMultilangColumn<"integer"> & {
+  separator?: boolean;
+};
 export type RichTextColumn = SingleOrMultilangColumn<"richtext">;
 export type ShortTextColumn = SingleOrMultilangColumn<"shorttext">;
 export type TextColumn = SingleOrMultilangColumn<"text">;
@@ -139,6 +155,7 @@ export type Column =
   | DateColumn
   | DateTimeColumn
   | GroupColumn
+  | IntegerColumn
   | LinkColumn
   | NumberColumn
   | RichTextColumn

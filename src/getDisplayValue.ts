@@ -9,6 +9,7 @@ import {
   isDateColumn,
   isDateTimeColumn,
   isGroupColumn,
+  isIntegerColumn,
   isLinkColumn,
   isMultilangColumn,
   isNumberColumn,
@@ -33,6 +34,7 @@ import type {
   DisplayValueForColumn,
   GroupColumn,
   grudAny,
+  IntegerColumn,
   LinkColumn,
   MultilangValue,
   NumberColumn,
@@ -134,8 +136,13 @@ export const getDisplayValue = (
   };
   const getNumberValue: getValueT<NumberColumn> = (column, value) => {
     const formatNumber = (lt: Langtag, val: number) =>
-      i.formatNumber(userLang ?? lt, val);
+      i.formatNumber(userLang ?? lt, column.separator, val);
     return mkDisplayMap(langs, column, value, formatNumber);
+  };
+  const getIntegerValue: getValueT<IntegerColumn> = (column, value) => {
+    const formatInteger = (lt: Langtag, val: number) =>
+      i.formatNumber(userLang ?? lt, column.separator, val);
+    return mkDisplayMap(langs, column, value, formatInteger);
   };
   const getPlainValue: getValueT<Column> = (column, value) =>
     mkDisplayMap(langs, column, value);
@@ -188,6 +195,7 @@ export const getDisplayValue = (
         [isDateColumn, getDateValue],
         [isDateTimeColumn, getDateTimeValue],
         [isGroupColumn, getGroupValue],
+        [isIntegerColumn, getIntegerValue],
         [isLinkColumn, getLinkValue],
         [isNumberColumn, getNumberValue],
         [isRichtextColumn, getPlainValue],

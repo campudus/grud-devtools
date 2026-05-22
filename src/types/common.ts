@@ -46,6 +46,7 @@ type CellValueForColumnMap = {
   [Col.ColumnKind.date]: Cell.DateCellValue;
   [Col.ColumnKind.datetime]: Cell.DateTimeCellValue;
   [Col.ColumnKind.group]: Cell.GroupCellValue;
+  [Col.ColumnKind.integer]: Cell.IntegerCellValue;
   [Col.ColumnKind.link]: Cell.LinkCellValue;
   [Col.ColumnKind.numeric]: Cell.NumberCellValue;
   [Col.ColumnKind.richtext]: Cell.RichTextCellValue;
@@ -62,6 +63,7 @@ type CellDisplayValueForColumnMap = {
   [Col.ColumnKind.date]: MultilangValue<string>;
   [Col.ColumnKind.datetime]: MultilangValue<string>;
   [Col.ColumnKind.group]: MultilangValue<string>;
+  [Col.ColumnKind.integer]: MultilangValue<string>;
   [Col.ColumnKind.link]: MultilangValue<string>[];
   [Col.ColumnKind.numeric]: MultilangValue<string>;
   [Col.ColumnKind.richtext]: MultilangValue<string>;

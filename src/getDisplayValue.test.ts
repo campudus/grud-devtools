@@ -10,6 +10,8 @@ import type {
   DateTimeCellValue,
   DateTimeColumn,
   GroupColumn,
+  IntegerCellValue,
+  IntegerColumn,
   LinkCellValue,
   LinkColumn,
   Locale,
@@ -171,6 +173,59 @@ describe("getDisplayValue()", () => {
         "de-DE": "1,234.56",
         "en-GB": "1,234.56",
         "en-US": "1,234.56",
+      });
+    });
+  });
+
+  describe("integer", () => {
+    it("should format single lang number values for specific langs when no user lang is given", () => {
+      const columnWithSeparator: IntegerColumn = {
+        id: 1,
+        kind: "integer",
+        multilanguage: false,
+        separator: true,
+      } as any;
+
+      const columnWithoutSeparator: IntegerColumn = {
+        id: 1,
+        kind: "integer",
+        multilanguage: false,
+        separator: false,
+      } as any;
+
+      const value: IntegerCellValue = { value: 1234 };
+      const getDisplayValueWithoutUserLocale = getDisplayValue();
+      expect(getDisplayValueWithoutUserLocale(columnWithSeparator, value))
+        .toEqual({
+          "de-DE": "1.234",
+          "en-GB": "1,234",
+          "en-US": "1,234",
+        });
+      expect(getDisplayValueWithoutUserLocale(columnWithoutSeparator, value))
+        .toEqual({
+          "de-DE": "1234",
+          "en-GB": "1234",
+          "en-US": "1234",
+        });
+    });
+    it("should format single lang number values for all values to specified user Lang", () => {
+      const column: IntegerColumn = {
+        id: 1,
+        kind: "integer",
+        multilanguage: false,
+      } as any;
+      const value: IntegerCellValue = { value: 1234 };
+      const getDisplayValueForGerman = getDisplayValue("de-DE");
+      const getDisplayValueForGB = getDisplayValue("en-GB");
+      expect(getDisplayValueForGerman(column, value)).toEqual({
+        "de-DE": "1.234",
+        "en-GB": "1.234",
+        "en-US": "1.234",
+      });
+      expect(getDisplayValueForGB(column, value)).toEqual({
+        "de-DE": "1,234",
+        "en-GB": "1,234",
+        "en-US": "1,234",
       });
     });
   });

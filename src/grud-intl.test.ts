@@ -109,7 +109,7 @@ describe("grud-intl", () => {
     );
   });
 
-  describe("formatNumber()", () => {
+  describe("formatNumber() with separator", () => {
     const amount = 1234.56;
     it.each`
       langtag    | result
@@ -119,7 +119,19 @@ describe("grud-intl", () => {
       ${"en-US"} | ${"1,234.56"}
     `("should format correctly for $langtag", ({ langtag, result }) => {
       // be aware of uncommon white space in the results
-      expect(i.formatNumber(langtag, amount)).toBe(result);
+      expect(i.formatNumber(langtag, true, amount)).toBe(result);
+    });
+  });
+  describe("formatNumber() without separator", () => {
+    const amount = 1234.56;
+    it.each`
+      langtag    | result
+      ${"de-DE"} | ${"1234,56"}
+      ${"en-GB"} | ${"1234.56"}
+      ${"fr-CH"} | ${"1234,56"}
+      ${"en-US"} | ${"1234.56"}
+    `("should format correctly for $langtag", ({ langtag, result }) => {
+      expect(i.formatNumber(langtag, false, amount)).toBe(result);
     });
   });
 

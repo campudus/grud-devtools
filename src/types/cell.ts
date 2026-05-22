@@ -13,6 +13,7 @@ export type TextCellValue = BaseCellValue<string>;
 export type RichTextCellValue = BaseCellValue<string>;
 export type ShortTextCellValue = BaseCellValue<string>;
 export type NumberCellValue = BaseCellValue<number>;
+export type IntegerCellValue = BaseCellValue<number>;
 export type BooleanCellValue = BaseCellValue<boolean>;
 export type LinkCellValue = SingleLangCellValue<
   Array<CellValue & { id: number }>

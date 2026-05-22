@@ -304,13 +304,21 @@ export function formatCurrency(
   return arguments.length < 3 ? formatter.format : formatter.format(value);
 }
 
-export function formatNumber(lt: Country | Locale, value: number): string;
-export function formatNumber(lt: Country | Locale): (_: number) => string;
+export function formatNumber(
+  lt: Country | Locale,
+  separator: boolean,
+  value: number,
+): string;
+export function formatNumber(
+  lt: Country | Locale,
+  separator: boolean,
+): (_: number) => string;
 export function formatNumber(
   langtag: Country | Locale = DEFAULT_LOCALE,
+  separator: boolean = true,
   value: number = 0,
 ) {
-  const formatter = new Intl.NumberFormat(langtag);
+  const formatter = new Intl.NumberFormat(langtag, { useGrouping: separator });
   return arguments.length < 2 ? formatter.format : formatter.format(value);
 }
 

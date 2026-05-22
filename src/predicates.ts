@@ -6,6 +6,7 @@ import type {
   CurrencyColumn,
   DateColumn,
   DateTimeColumn,
+  IntegerColumn,
   LinkColumn,
   NumberColumn,
   RichTextColumn,
@@ -28,6 +29,8 @@ export const isConcatColumn = (column: Column): column is ConcatColumn =>
   column.kind === ColumnKind.concat;
 export const isGroupColumn = (column: Column): column is ConcatColumn =>
   column.kind === ColumnKind.group;
+export const isIntegerColumn = (column: Column): column is IntegerColumn =>
+  column.kind === ColumnKind.integer;
 export const isLinkColumn = (column: Column): column is LinkColumn =>
   column.kind === ColumnKind.link;
 export const isNumberColumn = (column: Column): column is NumberColumn =>
