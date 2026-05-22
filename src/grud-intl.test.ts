@@ -135,6 +135,27 @@ describe("grud-intl", () => {
     });
   });
 
+  describe("formatNumber with different arguments length", () => {
+    it("should return a formatter function when called with 2 arguments", () => {
+      const formatter = i.formatNumber("en-US", true);
+      expect(typeof formatter).toBe("function");
+      expect(formatter(1234)).toBe("1,234");
+    });
+
+    it("should format a value directly when called with 3 arguments", () => {
+      const result = i.formatNumber("en-US", true, 1234);
+      expect(result).toBe("1,234");
+    });
+
+    it("should work with different locales", () => {
+      const formatter = i.formatNumber("de-DE", false);
+      expect(formatter(1234)).toBe("1234");
+
+      const result = i.formatNumber("de-DE", false, 1234);
+      expect(result).toBe("1234");
+    });
+  });
+
   describe("formatDate()", () => {
     const date = "2022-06-20";
     it.each`

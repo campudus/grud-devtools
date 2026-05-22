@@ -319,7 +319,7 @@ export function formatNumber(
   value: number = 0,
 ) {
   const formatter = new Intl.NumberFormat(langtag, { useGrouping: separator });
-  return arguments.length < 2 ? formatter.format : formatter.format(value);
+  return arguments.length < 3 ? formatter.format : formatter.format(value);
 }
 
 export function formatDate(lt: Country | Locale, value: string): string;
