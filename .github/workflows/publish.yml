@@ -1,4 +1,4 @@
-name: Deno CI
+name: Publish to JSR
 
 on:
   push:
