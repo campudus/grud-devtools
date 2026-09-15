@@ -1,0 +1,42 @@
+{
+  "name": "grud-devtools",
+  "version": "0.3.7",
+  "description": "Shared GRUD domain helpers (column/cell types, display formatting, predicates)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/campudus/grud-devtools.git"
+  },
+  "license": "Apache-2.0",
+  "main": "./script/mod.js",
+  "module": "./esm/mod.js",
+  "exports": {
+    ".": {
+      "import": "./esm/mod.js",
+      "require": "./script/mod.js"
+    },
+    "./types": {
+      "import": "./esm/src/types/index.js",
+      "require": "./script/src/types/index.js"
+    },
+    "./predicates": {
+      "import": "./esm/src/predicates.js",
+      "require": "./script/src/predicates.js"
+    },
+    "./intl": {
+      "import": "./esm/src/grud-intl.js",
+      "require": "./script/src/grud-intl.js"
+    },
+    "./getDisplayValue": {
+      "import": "./esm/src/getDisplayValue.js",
+      "require": "./script/src/getDisplayValue.js"
+    }
+  },
+  "dependencies": {
+    "ramda": "^0.30.1"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.30.1",
+    "@types/node": "^20.11.0"
+  },
+  "_generatedBy": "dnt@dev"
+}

@@ -1,0 +1,146 @@
+import type { Country } from "../grud-intl.js";
+import type { MultilangValue } from "./common.js";
+import type { TableID } from "./table.js";
+export type ColumnID = number & {
+    readonly __tag: unique symbol;
+};
+export declare const ColumnID: (id: number) => ColumnID;
+export declare const ColumnKind: {
+    readonly attachment: "attachment";
+    readonly boolean: "boolean";
+    readonly concat: "concat";
+    readonly currency: "currency";
+    readonly date: "date";
+    readonly datetime: "datetime";
+    readonly group: "group";
+    readonly integer: "integer";
+    readonly link: "link";
+    readonly numeric: "numeric";
+    readonly richtext: "richtext";
+    readonly shorttext: "shorttext";
+    readonly status: "status";
+    readonly text: "text";
+};
+export type ColumnKind = (typeof ColumnKind)[keyof typeof ColumnKind];
+export declare const LanguageType: {
+    readonly language: "language";
+    readonly country: "country";
+    readonly neutral: "neutral";
+};
+export type LanguageType = (typeof LanguageType)[keyof typeof LanguageType];
+export type ColumnAttributeString = {
+    type: "string";
+    value: string;
+};
+export type ColumnAttributeNumber = {
+    type: "number";
+    value: number;
+};
+export type ColumnAttributeBoolean = {
+    type: "boolean";
+    value: boolean;
+};
+export type ColumnAttributeArray = {
+    type: "array";
+    value: ColumnAttribute[];
+};
+export type ColumnAttribute = ColumnAttributeString | ColumnAttributeBoolean | ColumnAttributeNumber | ColumnAttributeArray;
+export interface ColumnAttributeMap {
+    [key: string]: ColumnAttribute;
+}
+interface BaseColumn {
+    attributes: ColumnAttributeMap;
+    description: MultilangValue<string>;
+    displayName: MultilangValue<string>;
+    format?: string;
+    id: ColumnID;
+    identifier: boolean;
+    languagetype?: LanguageType;
+    name: string;
+    ordering: number;
+    separator: boolean;
+    minLength?: number;
+    maxLength?: number;
+}
+interface SingleLangColumn<Kind extends ColumnKind> extends BaseColumn {
+    multilanguage: false;
+    kind: Kind;
+}
+interface MultilangColumn<Kind extends ColumnKind> extends BaseColumn {
+    multilanguage: true;
+    kind: Kind;
+    languagetype: "language";
+}
+interface MultiCountryColumn<Kind extends ColumnKind> extends BaseColumn {
+    multilanguage: true;
+    kind: Kind;
+    languagetype: "country";
+    countryCodes: Array<Country>;
+}
+export type StatusConditionValue<T = unknown> = {
+    column: ColumnID;
+    operator: "IS" | "NOT";
+    value: T;
+};
+export type StatusCondition = {
+    composition: "OR" | "AND";
+    values: Array<StatusCondition | StatusConditionValue>;
+};
+export interface StatusColumn extends BaseColumn {
+    multilanguage: false;
+    kind: typeof ColumnKind.status;
+    rules: {
+        name: string;
+        displayName: MultilangValue<string>;
+        color: string;
+        icon: {
+            type: string;
+            value: string;
+        };
+        tooltip: MultilangValue<string>;
+        conditions: StatusCondition;
+    }[];
+}
+type SingleOrMultilangColumn<Kind extends ColumnKind> = SingleLangColumn<Kind> | MultilangColumn<Kind>;
+export interface ConcatColumn extends BaseColumn {
+    kind: typeof ColumnKind.concat;
+    multilanguage: boolean;
+    languagetype?: "language";
+    name: "ID";
+    concats: Array<Column>;
+}
+export interface GroupColumn extends BaseColumn {
+    name: string;
+    kind: typeof ColumnKind.group;
+    multilanguage: boolean;
+    languageType?: "language";
+    groups: Array<Column>;
+}
+export interface LinkColumn extends BaseColumn {
+    kind: typeof ColumnKind.link;
+    multilanguage: false;
+    toColumn: Column;
+    toTable: TableID;
+    constraint?: {
+        cardinality?: {
+            from?: number;
+            to?: number;
+        };
+        deleteCascade: boolean;
+    };
+}
+export type AttachmentColumn = SingleOrMultilangColumn<"attachment">;
+export type BooleanColumn = SingleLangColumn<"boolean">;
+export type CurrencyColumn = MultiCountryColumn<"currency">;
+export type NumberColumn = SingleOrMultilangColumn<"numeric">;
+export type IntegerColumn = SingleOrMultilangColumn<"integer"> & {
+    separator?: boolean;
+};
+export type RichTextColumn = SingleOrMultilangColumn<"richtext">;
+export type ShortTextColumn = SingleOrMultilangColumn<"shorttext">;
+export type TextColumn = SingleOrMultilangColumn<"text">;
+export type DateColumn = SingleOrMultilangColumn<"date">;
+export type DateTimeColumn = SingleOrMultilangColumn<"datetime">;
+export type Column = AttachmentColumn | BooleanColumn | ConcatColumn | CurrencyColumn | DateColumn | DateTimeColumn | GroupColumn | IntegerColumn | LinkColumn | NumberColumn | RichTextColumn | ShortTextColumn | StatusColumn | TextColumn;
+export {};
+//# sourceMappingURL=column.d.ts.map

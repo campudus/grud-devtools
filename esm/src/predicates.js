@@ -1,0 +1,16 @@
+import { ColumnKind } from "./types/index.js";
+export const isMultilangColumn = (column) => column.multilanguage;
+export const isAttachmentColumn = (column) => column.kind === ColumnKind.attachment;
+export const isBooleanColumn = (column) => column.kind === ColumnKind.boolean;
+export const isCurrencyColumn = (column) => column.kind === ColumnKind.currency;
+export const isConcatColumn = (column) => column.kind === ColumnKind.concat;
+export const isGroupColumn = (column) => column.kind === ColumnKind.group;
+export const isIntegerColumn = (column) => column.kind === ColumnKind.integer;
+export const isLinkColumn = (column) => column.kind === ColumnKind.link;
+export const isNumberColumn = (column) => column.kind === ColumnKind.numeric;
+export const isRichtextColumn = (column) => column.kind === ColumnKind.richtext;
+export const isShorttextColumn = (column) => column.kind === ColumnKind.shorttext;
+export const isTextColumn = (column) => column.kind === ColumnKind.text;
+export const isDateColumn = (column) => column.kind === ColumnKind.date;
+export const isDateTimeColumn = (column) => column.kind === ColumnKind.datetime;
+export const isStatusColumn = (column) => column.kind === ColumnKind.status;
