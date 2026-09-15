@@ -44,7 +44,7 @@ export const joinMultilangValues = (
             getLanguage(lt as Language),
             DEFAULT_LOCALE,
             DEFAULT_LANG,
-          ]),
+          ]) as grudAny,
         ) as grudAny,
       ),
     )(vals);
