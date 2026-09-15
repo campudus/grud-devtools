@@ -32,13 +32,14 @@ jobs:
       - name: Run tests
         run: deno task test
 
-      - name: Publish to JSR
-        run: deno publish
-
-      # No npm/JSR publish rights required from here on - this only needs push access to this
-      # repo's own npm-dist branch, which the default GITHUB_TOKEN already has via the
-      # `contents: write` permission above. Consumers add it as a git dependency instead of a
-      # registry one, e.g. "grud-devtools": "git+https://github.com/campudus/grud-devtools.git#npm-dist".
+      # Runs before "Publish to JSR" on purpose: a failed step aborts every step after it in the
+      # same job (no guard/continue-on-error was in place), which is exactly what silently skipped
+      # both of these the first time around when deno publish failed. Building/pushing npm-dist
+      # first means it always happens regardless of whether the JSR publish succeeds - it only
+      # needs push access to this repo's own npm-dist branch, which the default GITHUB_TOKEN
+      # already has via the `contents: write` permission above, no npm/JSR publish rights at all.
+      # Consumers add it as a git dependency instead of a registry one, e.g.
+      # "grud-devtools": "git+https://github.com/campudus/grud-devtools.git#npm-dist".
       - name: Build npm package with dnt
         run: deno run -A scripts/build_npm.ts
 
@@ -57,3 +58,6 @@ jobs:
               -c user.email="github-actions[bot]@users.noreply.github.com" \
               commit -q -m "npm-dist: ${{ github.sha }}"
           git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" npm-dist:npm-dist
+
+      - name: Publish to JSR
+        run: deno publish
