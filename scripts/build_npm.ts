@@ -48,6 +48,16 @@ await build({
     dependencies: {
       ramda: "^0.30.1",
     },
+    // dnt's own type-check pass (below) runs npm install inside ./outDir first, then relies on
+    // TypeScript's automatic @types/ resolution against whatever ended up in that node_modules -
+    // it does not fall back to any ambient types from outside that directory. Without these two,
+    // that check fails on `ramda` having no bundled types and on `console` (a Node global that
+    // only exists once @types/node's ambient declarations are present), even though nothing here
+    // is Deno-specific - see jsr.io/@deno/dnt/0.41.3/mod.ts's getProgramAndMaybeTypeCheck.
+    devDependencies: {
+      "@types/ramda": "^0.30.1",
+      "@types/node": "^20.11.0",
+    },
   },
   postBuild() {
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
