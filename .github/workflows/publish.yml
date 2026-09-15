@@ -8,7 +8,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # also needed to push the built npm package to the npm-dist branch
       id-token: write # The OIDC ID token is used for authentication with JSR.
 
     steps:
@@ -34,3 +34,26 @@ jobs:
 
       - name: Publish to JSR
         run: deno publish
+
+      # No npm/JSR publish rights required from here on - this only needs push access to this
+      # repo's own npm-dist branch, which the default GITHUB_TOKEN already has via the
+      # `contents: write` permission above. Consumers add it as a git dependency instead of a
+      # registry one, e.g. "grud-devtools": "git+https://github.com/campudus/grud-devtools.git#npm-dist".
+      - name: Build npm package with dnt
+        run: deno run -A scripts/build_npm.ts
+
+      # npm-dist is a snapshot branch, not a history: each run replaces it wholesale with the
+      # current build output (rebuilt from a throwaway repo inside ./npm, then force-pushed) so
+      # consumers never see partial/rebase-conflicted history. This means `npm ci` alone won't
+      # pick up a new build - consumers have to run `npm update grud-devtools` to move to the
+      # latest commit, since npm's lockfile pins git dependencies by commit SHA.
+      - name: Push npm-dist branch
+        working-directory: ./npm
+        run: |
+          git init -q
+          git checkout -q -b npm-dist
+          git add -A
+          git -c user.name="github-actions[bot]" \
+              -c user.email="github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "npm-dist: ${{ github.sha }}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" npm-dist:npm-dist

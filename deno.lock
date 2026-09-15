@@ -15,6 +15,8 @@
     "jsr:@std/internal@^1.0.12": "1.0.14",
     "jsr:@std/internal@^1.0.14": "1.0.14",
     "jsr:@std/io@0.223": "0.223.0",
+    "jsr:@std/jsonc@1": "1.0.2",
+    "jsr:@std/jsonc@^1.0.2": "1.0.2",
     "jsr:@std/path@0.223": "0.223.0",
     "jsr:@std/path@1": "1.1.5",
     "jsr:@std/path@1.0.0-rc.1": "1.0.0-rc.1",
@@ -90,6 +92,9 @@
         "jsr:@std/assert@0.223",
         "jsr:@std/bytes"
       ]
+    },
+    "@std/jsonc@1.0.2": {
+      "integrity": "909605dae3af22bd75b1cbda8d64a32cf1fd2cf6efa3f9e224aba6d22c0f44c7"
     },
     "@std/path@0.223.0": {
       "integrity": "593963402d7e6597f5a6e620931661053572c982fc014000459edc1f93cc3989",
