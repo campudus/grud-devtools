@@ -3,7 +3,9 @@ import { parse as parseJsonc } from "jsr:@std/jsonc@^1.0.2";
 
 // deno.jsonc has comments, so it can't go through a plain `type: "json"` import
 // (Deno rejects that with "Expected a Json module, but identified a Jsonc module").
-const denoConfig = parseJsonc(Deno.readTextFileSync("./deno.jsonc")) as { version: string };
+const denoConfig = parseJsonc(Deno.readTextFileSync("./deno.jsonc")) as {
+  version: string;
+};
 
 // CLI arg wins when given (used for local/manual test builds, e.g. "0.3.7-dnt-test"),
 // otherwise this mirrors exactly the version `deno publish` uses for the JSR release,
@@ -32,7 +34,8 @@ await build({
     // independent of the JSR scope (@grud/devtools).
     name: "grud-devtools",
     version,
-    description: "Shared GRUD domain helpers (column/cell types, display formatting, predicates)",
+    description:
+      "Shared GRUD domain helpers (column/cell types, display formatting, predicates)",
     license: "Apache-2.0",
     repository: {
       type: "git",
